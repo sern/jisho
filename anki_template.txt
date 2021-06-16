@@ -1,0 +1,40 @@
+<div class="front">
+	{{furigana:Front}}
+</div>
+
+<hr id=answer>
+
+{{Back}}
+
+<hr id=examples>
+
+<div class="examples">
+	{{examples}}
+</div>
+
+<hr/><iframe srcdoc="<html><body><head><style></style></head><body>{{jp}}</body></html>"></iframe>
+
+<hr/>
+
+<iframe srcdoc="<html><body><head><style></style></head><body>{{jp-cn}}</body></html>"></iframe>
+
+<hr/>
+
+<iframe srcdoc="<html><body><head><style></style></head><body>{{jp-en}}</body></html>"></iframe>
+
+<hr/>
+
+<hr/>
+
+<b>類語</b>
+
+<div class="ruigo">
+	{{furigana:類語}}
+</div>
+
+<hr/>
+<b>反対語</b>
+
+<div class="hantaigo">
+	{{反対語}}
+</div>
