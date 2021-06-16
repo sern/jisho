@@ -2,10 +2,12 @@ use lazy_static::lazy_static;
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 use serde::Deserialize;
+use std::fs::File;
+use std::io::prelude::*;
 
-pub const JP_BINARY: &[u8] = include_bytes!("../jp.bc");
-pub const JP_CN_BINARY: &[u8] = include_bytes!("../jp-cn.bc");
-pub const JP_EN_BINARY: &[u8] = include_bytes!("../jp-en.bc");
+// pub const JP_BINARY: &[u8] = include_bytes!("../jp.bc");
+// pub const JP_CN_BINARY: &[u8] = include_bytes!("../jp-cn.bc");
+// pub const JP_EN_BINARY: &[u8] = include_bytes!("../jp-en.bc");
 
 #[pyclass]
 #[derive(Deserialize, Debug, Clone)]
@@ -29,16 +31,45 @@ pub struct SearchResult {
     jp_en: Vec<Entry>,
 }
 
+#[pyclass]
+#[derive(Default)]
+pub struct SearchResultSingle {
+    #[pyo3(get)]
+    jp: Option<Entry>,
+    #[pyo3(get)]
+    jp_cn: Option<Entry>,
+    #[pyo3(get)]
+    jp_en: Option<Entry>,
+}
+
 // impl SearchResult {
 //     fn new() -> Self {
 //         Self { jp: vec![], jp }
 //     }
 // }
 
+// lazy_static! {
+//     pub static ref JP: Vec<Entry> = {
+//         let jp_binary = std::fs::read("raw/jp.data");
+//         bincode::deserialize(jp_binary).unwrap()
+//     };
+//     pub static ref JP_CN: Vec<Entry> = bincode::deserialize(JP_CN_BINARY).unwrap();
+//     pub static ref JP_EN: Vec<Entry> = bincode::deserialize(JP_EN_BINARY).unwrap();
+// }
+
 lazy_static! {
-    pub static ref JP: Vec<Entry> = bincode::deserialize(JP_BINARY).unwrap();
-    pub static ref JP_CN: Vec<Entry> = bincode::deserialize(JP_CN_BINARY).unwrap();
-    pub static ref JP_EN: Vec<Entry> = bincode::deserialize(JP_EN_BINARY).unwrap();
+    pub static ref JP: Vec<Entry> = {
+        let binary = std::fs::read("jisho/jp.bc").unwrap();
+        bincode::deserialize(&binary).unwrap()
+    };
+    pub static ref JP_CN: Vec<Entry> = {
+        let binary = std::fs::read("jisho/jp-cn.bc").unwrap();
+        bincode::deserialize(&binary).unwrap()
+    };
+    pub static ref JP_EN: Vec<Entry> = {
+        let binary = std::fs::read("jisho/jp-en.bc").unwrap();
+        bincode::deserialize(&binary).unwrap()
+    };
 }
 
 #[rustfmt::skip]
@@ -157,22 +188,29 @@ fn jisho(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(search_starts_with, m)?)
         .unwrap();
     m.add_function(wrap_pyfunction!(search_exact, m)?).unwrap();
-    // #[pyfn(m, "search_interactive")]
-    // fn search_interactive(query: String) -> Option<Entry> {
-    //     let stdin = io::stdin();
-    //     for entry in DAIJIRIN.iter() {
-    //         if entry.hiragana.starts_with(&query)
-    //             || entry.kanjis.iter().any(|x| x.starts_with(&query))
-    //         {
-    //             println!("{}|{:?}", entry.hiragana, entry.kanjis);
-    //             let mut ans = String::new();
-    //             stdin.read_line(&mut ans).unwrap();
-    //             if &ans == "\n" {
-    //                 return Some(entry.clone());
-    //             }
-    //         }
-    //     }
-    //     None
-    // }
+    #[pyfn(m, "search_exact_interactive")]
+    fn search_exact_interactive(query: Vec<String>) -> SearchResultSingle {
+        fn _search_exact_interactive(query: &[String], dictionary: &[Entry]) -> Option<Entry> {
+            let stdin = std::io::stdin();
+            for entry in dictionary.iter() {
+                for q in query {
+                    if &entry.hiragana == q || entry.kanjis.iter().any(|x| x == q) {
+                        println!("{}|{:?}", entry.hiragana, entry.kanjis);
+                        let mut ans = String::new();
+                        stdin.read_line(&mut ans).unwrap();
+                        if &ans == "\n" {
+                            return Some(entry.clone());
+                        }
+                    }
+                }
+            }
+            None
+        }
+        SearchResultSingle {
+            jp: _search_exact_interactive(&query, &JP),
+            jp_cn: _search_exact_interactive(&query, &JP_CN),
+            jp_en: _search_exact_interactive(&query, &JP_EN),
+        }
+    }
     Ok(())
 }

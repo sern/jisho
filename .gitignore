@@ -3,3 +3,5 @@ __pycache__
 extract/
 *.so
 *.dylib
+
+dic_extract
