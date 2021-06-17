@@ -14,7 +14,7 @@ def process_hinshi(x_xdh) -> str:
         return "形動"
     hinshi = pos[0].text
     if hinshi == "名":
-        sy = pos.xpath(
+        sy = pos[0].xpath(
             './..//span[@class="sy"]'
         )  # why isn't following-sibling working?
         if len(sy) == 1 and sy[0].text_content().strip() == "スル":
