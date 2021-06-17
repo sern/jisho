@@ -38,7 +38,8 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
         front = word.jp.hiragana
     hinshi = parse_hinshi(word.jp.definition)
     if len(hinshi) == 0:
-        hinshi = input("品詞はなんですか？（名・動・形・形動・副・連語）").split(" ")
+        # hinshi = input("品詞はなんですか？（名・動・形・形動・副・連語）").split(" ")
+        hinshi = ["名"]
     if exists(front):
         print("Already exists.")
         return
