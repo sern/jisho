@@ -52,8 +52,8 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
                         "Front": front,
                         "examples": examples,
                         "jp": word.jp.definition,
-                        "jp-cn": word.jp_cn.definition,
-                        "jp-en": word.jp_en.definition,
+                        "jp-cn": word.jp_cn.definition if word.jp_cn else "",
+                        "jp-en": word.jp_en.definition if word.jp_en else "",
                     },
                     "tags": hinshi(word.jp.definition),
                 }
