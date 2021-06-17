@@ -18,7 +18,7 @@ def exists(word):
     return r["error"] != None
 
 
-def add_note(word: pyjisho.SearchResultSingle):
+def add_note(word: pyjisho.SearchResultSingle, examples: str):
     if len(word.jp.kanjis) > 0:
         front = "・".join(word.jp.kanjis)
         if word.jp.hiragana:
@@ -39,6 +39,7 @@ def add_note(word: pyjisho.SearchResultSingle):
                     "modelName": MODEL,
                     "fields": {
                         "Front": front,
+                        "examples": examples,
                         "jp": word.jp.definition,
                         "jp-cn": word.jp_cn.definition,
                         "jp-en": word.jp_en.definition,
@@ -61,8 +62,12 @@ if __name__ == "__main__":
     from re import match
 
     os.chdir(os.path.dirname(__file__))
+    if len(sys.argv) == 1:
+        raise Exception(f"Please provide a query, e.g. `{sys.argv[0]} sonaeru`")
     query = sys.argv[1]
     if match("^[a-zA-Z]+$", query):
         query = to_hiragana(query)
+    if len(sys.argv) > 2:
+        examples = "\n".join(sys.argv[2:])
     word = pyjisho.search_exact_interactive(query)
-    add_note(word)
+    add_note(word, examples)
