@@ -12,6 +12,8 @@ def hinshi(definition: str) -> List[str]:
     definition = lh.fromstring(definition)
     hinshi = [h.text_content() for h in definition.xpath('//span[@class="pos"]')]
     hinshi = [h if h[0] != "動" else "動" for h in hinshi]
+    if hinshi == ["名", "形動"]:
+        hinshi = ["形動"]
     return hinshi
 
 
