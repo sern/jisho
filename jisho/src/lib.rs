@@ -5,9 +5,30 @@ use serde::Deserialize;
 use std::fs::File;
 use std::io::prelude::*;
 
+// embedding makes compilation extremely slow and takes up gigantic (up to 20GB) amount of RAM
 // pub const JP_BINARY: &[u8] = include_bytes!("../jp.bc");
 // pub const JP_CN_BINARY: &[u8] = include_bytes!("../jp-cn.bc");
 // pub const JP_EN_BINARY: &[u8] = include_bytes!("../jp-en.bc");
+// lazy_static! {
+//     pub static ref JP: Vec<Entry> = bincode::deserialize(JP_BINARY).unwrap();
+//     pub static ref JP_CN: Vec<Entry> = bincode::deserialize(JP_CN_BINARY).unwrap();
+//     pub static ref JP_EN: Vec<Entry> = bincode::deserialize(JP_EN_BINARY).unwrap();
+// }
+
+lazy_static! {
+    pub static ref JP: Vec<Entry> = {
+        let binary = std::fs::read("jisho/jp.bc").unwrap();
+        bincode::deserialize(&binary).unwrap()
+    };
+    pub static ref JP_CN: Vec<Entry> = {
+        let binary = std::fs::read("jisho/jp-cn.bc").unwrap();
+        bincode::deserialize(&binary).unwrap()
+    };
+    pub static ref JP_EN: Vec<Entry> = {
+        let binary = std::fs::read("jisho/jp-en.bc").unwrap();
+        bincode::deserialize(&binary).unwrap()
+    };
+}
 
 #[pyclass]
 #[derive(Deserialize, Debug, Clone)]
@@ -40,36 +61,6 @@ pub struct SearchResultSingle {
     jp_cn: Option<Entry>,
     #[pyo3(get)]
     jp_en: Option<Entry>,
-}
-
-// impl SearchResult {
-//     fn new() -> Self {
-//         Self { jp: vec![], jp }
-//     }
-// }
-
-// lazy_static! {
-//     pub static ref JP: Vec<Entry> = {
-//         let jp_binary = std::fs::read("raw/jp.data");
-//         bincode::deserialize(jp_binary).unwrap()
-//     };
-//     pub static ref JP_CN: Vec<Entry> = bincode::deserialize(JP_CN_BINARY).unwrap();
-//     pub static ref JP_EN: Vec<Entry> = bincode::deserialize(JP_EN_BINARY).unwrap();
-// }
-
-lazy_static! {
-    pub static ref JP: Vec<Entry> = {
-        let binary = std::fs::read("jisho/jp.bc").unwrap();
-        bincode::deserialize(&binary).unwrap()
-    };
-    pub static ref JP_CN: Vec<Entry> = {
-        let binary = std::fs::read("jisho/jp-cn.bc").unwrap();
-        bincode::deserialize(&binary).unwrap()
-    };
-    pub static ref JP_EN: Vec<Entry> = {
-        let binary = std::fs::read("jisho/jp-en.bc").unwrap();
-        bincode::deserialize(&binary).unwrap()
-    };
 }
 
 #[rustfmt::skip]

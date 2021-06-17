@@ -55,8 +55,10 @@ def add_note(word: pyjisho.SearchResultSingle):
 
 
 if __name__ == "__main__":
+    import os
     import sys
 
+    os.chdir(os.path.dirname(__file__))
     query = sys.argv[1]
     word = pyjisho.search_exact_interactive(query)
     add_note(word)
