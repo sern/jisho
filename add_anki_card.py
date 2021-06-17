@@ -90,15 +90,12 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
 if __name__ == "__main__":
     import os
     import sys
-    from romkan import to_hiragana
     from re import match
 
     os.chdir(os.path.dirname(__file__))
     if len(sys.argv) == 1:
         raise Exception(f"Please provide a query, e.g. `{sys.argv[0]} sonaeru`")
     query = sys.argv[1]
-    if match("^[a-zA-Z]+$", query):
-        query = to_hiragana(query)
     examples = "\n".join(sys.argv[2:]) if len(sys.argv) > 2 else ""
     word = pyjisho.search_exact_interactive(query)
     add_note(word, examples)

@@ -1,6 +1,7 @@
 use lazy_static::lazy_static;
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
+use romkan::Romkan;
 use serde::Deserialize;
 
 // embedding makes compilation extremely slow and takes up gigantic (up to 20GB) amount of RAM
@@ -175,6 +176,14 @@ fn _search<F: Fn(&str, &[Entry]) -> Vec<Entry>>(
 //     res
 // }
 
+pub fn standardize_input(input: &str) -> String {
+    if input.chars().all(|c| c.is_ascii_alphabetic()) {
+        input.to_hiragana()
+    } else {
+        input.to_owned()
+    }
+}
+
 #[pymodule]
 fn jisho(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<Entry>()?;
@@ -190,11 +199,12 @@ fn jisho(_py: Python, m: &PyModule) -> PyResult<()> {
             dictionary: &[Entry],
             name: &'static str,
         ) -> Option<Entry> {
+            let q = standardize_input(input);
             println!("Now searching {} in the {} dictionary...", q, name);
             let stdin = std::io::stdin();
             let mut ans = String::new();
             for entry in dictionary.iter() {
-                if &entry.hiragana == q || entry.kanjis.iter().any(|x| x == q) {
+                if entry.hiragana == q || entry.kanjis.iter().any(|x| x == &q) {
                     println!("{}|{:?}", entry.hiragana, entry.kanjis);
 
                     stdin.read_line(&mut ans).unwrap();
