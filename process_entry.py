@@ -18,7 +18,14 @@ def process_common(entry: str):
     return entry.replace("d:entry", "div")
 
 
+def process_hiragana_lxml_result(hiragana: str):
+    return (
+        hiragana[0].text_content().replace("・", "").strip() if len(hiragana) > 0 else ""
+    )
+
+
 def process_jp(entries):
+    print("Processing Japanese Dictionary...")
     entries = [process_jp_entry(e) for e in entries]
     with open("jp.json", "w") as f:
         json_dump_pretty(entries, f)
@@ -28,7 +35,7 @@ def process_jp_entry(entry: str):
     entry = process_common(entry)
     entry = entry.replace('<span class="gp">\u2008</span>', "")
     entry_x = lh.fromstring(entry)
-    hiragana = entry_x.xpath('//span[@class="hw"]')[0].text_content().strip()
+    hiragana = process_hiragana_lxml_result(entry_x.xpath('//span[@class="hw"]'))
     kanjis = [
         BRACKETS_RE.sub("", kj.text_content().strip())
         for kj in entry_x.xpath('//span[@class="hg x_xh0"]//span[@class="f"]')
@@ -38,6 +45,7 @@ def process_jp_entry(entry: str):
 
 
 def process_jp_cn(entries):
+    print("Processing Japanese-Chinese Dictionary...")
     MID = 68782
     cn_jp_entries = entries[:MID]
     jp_cn_entries = entries[MID:]
@@ -52,10 +60,9 @@ def process_jp_cn(entries):
 def process_jp_cn_entry(entry: str):
     entry = process_common(entry)
     entry_x = lh.fromstring(entry)
-    hiragana = entry_x.xpath('//span[@class="hw"]')
-    hiragana = hiragana[0].text_content().strip() if len(hiragana) > 0 else ""
+    hiragana = process_hiragana_lxml_result(entry_x.xpath('//span[@class="hw"]'))
     kanjis = [
-        BRACKETS_RE.sub("", kj.text_content())
+        BRACKETS_RE.sub("", kj.text_content().strip())
         for kj in entry_x.xpath('//span[@class="hwg x_xh0"]//span[@class="hv t_kanji"]')
     ]
     return (hiragana, kanjis, entry)
@@ -69,6 +76,7 @@ def process_cn_jp_entry(entry: str):
 
 
 def process_jp_en(entries):
+    print("Processing Japanese-English Dictionary...")
     MID = 47371
     en_jp_entries = entries[:MID]
     jp_en_entries = entries[MID:]
@@ -83,9 +91,9 @@ def process_jp_en(entries):
 def process_jp_en_entry(entry: str):
     entry = process_common(entry)
     entry_x = lh.fromstring(entry)
-    hiragana = entry_x.xpath('//span[@class="hw"]')[0].text_content().strip()
+    hiragana = process_hiragana_lxml_result(entry_x.xpath('//span[@class="hw"]'))
     kanjis = [
-        BRACKETS_RE.sub("", kj.text_content())
+        BRACKETS_RE.sub("", kj.text_content().strip())
         for kj in entry_x.xpath('//span[@class="hwg x_xh0"]//span[@class="hv"]')
     ]
     return (hiragana, kanjis, entry)
@@ -95,18 +103,3 @@ def process_en_jp_entry(entry: str):
     entry = process_common(entry)
     en = cn = re.search(r'd:title="(.+?)"', entry)[1]
     return (en, entry)
-
-
-if __name__ == "__main__":
-    import os
-
-    os.chdir("raw_extract")
-    with open("jp_raw.pickle", "rb") as f:
-        entries = f.read()
-    process_jp(entries)
-    with open("jp-cn_raw.pickle", "rb") as f:
-        entries = f.read()
-    process_jp_cn(entries)
-    with open("jp-en_raw.pickle", "rb") as f:
-        entries = f.read()
-    process_jp_en(entries)

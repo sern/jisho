@@ -83,6 +83,10 @@ pub const SEARCH_EXACT:    u8 = 0b00000001;
 pub const SEARCH_START:    u8 = 0b00000010;
 pub const SEARCH_CONTAINS: u8 = 0b00000100;
 
+const JP_NAME: &'static str = "Japanese";
+const JP_CN_NAME: &'static str = "Japanese-Chinese";
+const JP_EN_NAME: &'static str = "Japanese-English";
+
 // #[pyclass]
 // pub struct Jisho {}
 
@@ -185,31 +189,44 @@ fn _search<F: Fn(&str, &[Entry]) -> Vec<Entry>>(
 #[pymodule]
 fn jisho(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<Entry>()?;
+    m.add_class::<SearchResult>()?;
+    m.add_class::<SearchResultSingle>()?;
     m.add_function(wrap_pyfunction!(search_starts_with, m)?)
         .unwrap();
     m.add_function(wrap_pyfunction!(search_exact, m)?).unwrap();
     #[pyfn(m, "search_exact_interactive")]
-    fn search_exact_interactive(query: Vec<String>) -> SearchResultSingle {
-        fn _search_exact_interactive(query: &[String], dictionary: &[Entry]) -> Option<Entry> {
+    fn search_exact_interactive(query: String) -> SearchResultSingle {
+        fn _search_exact_interactive(
+            q: &str,
+            dictionary: &[Entry],
+            name: &'static str,
+        ) -> Option<Entry> {
+            println!("Now searching {} in the {} dictionary...", q, name);
             let stdin = std::io::stdin();
+            let mut ans = String::new();
             for entry in dictionary.iter() {
-                for q in query {
-                    if &entry.hiragana == q || entry.kanjis.iter().any(|x| x == q) {
-                        println!("{}|{:?}", entry.hiragana, entry.kanjis);
-                        let mut ans = String::new();
-                        stdin.read_line(&mut ans).unwrap();
-                        if &ans == "\n" {
-                            return Some(entry.clone());
-                        }
+                if &entry.hiragana == q || entry.kanjis.iter().any(|x| x == q) {
+                    println!("{}|{:?}", entry.hiragana, entry.kanjis);
+
+                    stdin.read_line(&mut ans).unwrap();
+                    if &ans == "\n" {
+                        return Some(entry.clone());
                     }
+                    ans.clear();
                 }
             }
-            None
+            println!("Cannot find a match of {} in the {} dictionary. Hit enter to skip or search for another keyword.", q, name);
+            stdin.read_line(&mut ans).unwrap();
+            match &ans[..ans.len() - 1] {
+                // -1 to remove newline
+                "" => None,
+                q => _search_exact_interactive(&q, dictionary, name),
+            }
         }
         SearchResultSingle {
-            jp: _search_exact_interactive(&query, &JP),
-            jp_cn: _search_exact_interactive(&query, &JP_CN),
-            jp_en: _search_exact_interactive(&query, &JP_EN),
+            jp: _search_exact_interactive(&query, &JP, JP_NAME),
+            jp_cn: _search_exact_interactive(&query, &JP_CN, JP_CN_NAME),
+            jp_en: _search_exact_interactive(&query, &JP_EN, JP_EN_NAME),
         }
     }
     Ok(())
