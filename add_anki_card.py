@@ -57,8 +57,12 @@ def add_note(word: pyjisho.SearchResultSingle):
 if __name__ == "__main__":
     import os
     import sys
+    from romkan import to_hiragana
+    from re import match
 
     os.chdir(os.path.dirname(__file__))
     query = sys.argv[1]
+    if match("^[a-zA-Z]+$", query):
+        query = to_hiragana(query)
     word = pyjisho.search_exact_interactive(query)
     add_note(word)
