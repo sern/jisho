@@ -5,3 +5,4 @@ extract/
 *.dylib
 
 dic_extract
+examples/

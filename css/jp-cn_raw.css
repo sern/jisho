@@ -593,9 +593,17 @@ span.x_xd1.cSn.gcSn span.x_xd2.hasSn span.x_xd3.hasSn span.sn {
 span.x_xd1.hasSn > span.sn + span.x_xd2.hasSn > span.sn
 span.x_xd2.hasSn > span.sn + span.x_xd3.hasSn > span.sn
 */
-span.x_xd0.cHasSn.gcHasSn span.x_xd1.hasSn > span.sn + span.x_xd2.hasSn > span.sn,
+span.x_xd0.cHasSn.gcHasSn
+  span.x_xd1.hasSn
+  > span.sn
+  + span.x_xd2.hasSn
+  > span.sn,
 span.x_xd0.cSn.gcSn span.x_xd1.hasSn > span.sn + span.x_xd2.hasSn > span.sn,
-span.x_xd1.cHasSn.gcHasSn span.x_xd2.hasSn > span.sn + span.x_xd3.hasSn > span.sn,
+span.x_xd1.cHasSn.gcHasSn
+  span.x_xd2.hasSn
+  > span.sn
+  + span.x_xd3.hasSn
+  > span.sn,
 span.x_xd1.cSn.gcSn span.x_xd2.hasSn > span.sn + span.x_xd3.hasSn > span.sn {
   margin-left: -3.6em;
   margin-right: 0.2em;
@@ -1808,7 +1816,11 @@ span.trgg.x_xd2 > span.trg > span.trans span.tgr {
 span.x_xdh.sn:first-child + span.exg.x_xd2 > span.trg.x_xd3 > span.trans {
   font-weight: 500;
 }
-span.x_xdh.sn:first-child + span.exg.x_xd2 > span.trg.x_xd3 > span.trans span.tgr {
+span.x_xdh.sn:first-child
+  + span.exg.x_xd2
+  > span.trg.x_xd3
+  > span.trans
+  span.tgr {
   font-weight: normal;
 }
 
@@ -2248,7 +2260,10 @@ span.feature.t_wordLinks span.list span.item.t_related {
   font-weight: 600;
   font-variant: small-caps;
 }
-span.feature.t_wordLinks span.list span.item.t_related + span.item.t_description {
+span.feature.t_wordLinks
+  span.list
+  span.item.t_related
+  + span.item.t_description {
   margin-left: 0.5em;
 }
 

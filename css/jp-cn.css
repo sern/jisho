@@ -78,55 +78,55 @@ td {
 
 /* OSX */
 
-span[class='image'],
+span[class="image"],
 .image {
   display: block;
   margin-top: 0.4em;
   margin-left: 1em;
 }
 
-img[class='map'] {
+img[class="map"] {
   width: 100%;
   margin-top: 1em;
 }
 
-div[class='lineart'] {
+div[class="lineart"] {
   float: right;
   padding: 1em 0em 0.5em 1.5em;
   background-color: transparent;
 }
 
-div[class='lineart'] {
+div[class="lineart"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='Third'] {
+div[class="lineart"][layout="Third"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='Half'] {
+div[class="lineart"][layout="Half"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='Two-thirds'] {
+div[class="lineart"][layout="Two-thirds"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='One'] {
+div[class="lineart"][layout="One"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='Two'] {
+div[class="lineart"][layout="Two"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='THree'] {
+div[class="lineart"][layout="THree"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='Full Page'] {
+div[class="lineart"][layout="Full Page"] {
   max-width: 33%;
 }
-div[class='lineart'][layout='Two Pages'] {
+div[class="lineart"][layout="Two Pages"] {
   max-width: 33%;
 }
-div[class='lineart'] img {
+div[class="lineart"] img {
   width: 100%;
 }
-div[class='lineart'] div {
+div[class="lineart"] div {
   display: block;
   text-align: center;
   font-weight: 600;
@@ -162,14 +162,14 @@ html.apple_client-panel img.gi {
 
 span.hsb:before {
   /* '•' */
-  content: '\2022';
+  content: "\2022";
   font-size: 80%;
   vertical-align: 3%;
 }
 
 span.wbb:before {
   /* ' | ' */
-  content: '\a0\7c\a0';
+  content: "\a0\7c\a0";
   font-size: 70%;
   vertical-align: 5%;
   color: rgba(0, 0, 0, 0.498);
@@ -593,9 +593,17 @@ span.x_xd1.cSn.gcSn span.x_xd2.hasSn span.x_xd3.hasSn span.sn {
 span.x_xd1.hasSn > span.sn + span.x_xd2.hasSn > span.sn
 span.x_xd2.hasSn > span.sn + span.x_xd3.hasSn > span.sn
 */
-span.x_xd0.cHasSn.gcHasSn span.x_xd1.hasSn > span.sn + span.x_xd2.hasSn > span.sn,
+span.x_xd0.cHasSn.gcHasSn
+  span.x_xd1.hasSn
+  > span.sn
+  + span.x_xd2.hasSn
+  > span.sn,
 span.x_xd0.cSn.gcSn span.x_xd1.hasSn > span.sn + span.x_xd2.hasSn > span.sn,
-span.x_xd1.cHasSn.gcHasSn span.x_xd2.hasSn > span.sn + span.x_xd3.hasSn > span.sn,
+span.x_xd1.cHasSn.gcHasSn
+  span.x_xd2.hasSn
+  > span.sn
+  + span.x_xd3.hasSn
+  > span.sn,
 span.x_xd1.cSn.gcSn span.x_xd2.hasSn > span.sn + span.x_xd3.hasSn > span.sn {
   margin-left: -3.6em;
   margin-right: 0.2em;
@@ -1740,10 +1748,10 @@ span.altName {
   font-weight: 600;
 }
 
-span.cite[highlight='true'] {
+span.cite[highlight="true"] {
   font-style: italic;
 }
-span.cite[highlight='false'] {
+span.cite[highlight="false"] {
   font-weight: normal;
 }
 
@@ -1808,7 +1816,11 @@ span.trgg.x_xd2 > span.trg > span.trans span.tgr {
 span.x_xdh.sn:first-child + span.exg.x_xd2 > span.trg.x_xd3 > span.trans {
   font-weight: 500;
 }
-span.x_xdh.sn:first-child + span.exg.x_xd2 > span.trg.x_xd3 > span.trans span.tgr {
+span.x_xdh.sn:first-child
+  + span.exg.x_xd2
+  > span.trg.x_xd3
+  > span.trans
+  span.tgr {
   font-weight: normal;
 }
 
@@ -1826,10 +1838,10 @@ span.finf {
 span.fl {
   font-weight: 600;
 }
-span.lp[highlight='true'] {
+span.lp[highlight="true"] {
   font-weight: 600;
 }
-span.lp[highlight='false'] {
+span.lp[highlight="false"] {
   font-style: normal;
 }
 
@@ -2248,7 +2260,10 @@ span.feature.t_wordLinks span.list span.item.t_related {
   font-weight: 600;
   font-variant: small-caps;
 }
-span.feature.t_wordLinks span.list span.item.t_related + span.item.t_description {
+span.feature.t_wordLinks
+  span.list
+  span.item.t_related
+  + span.item.t_description {
   margin-left: 0.5em;
 }
 
@@ -2418,7 +2433,7 @@ html.apple_client-panel span.hwg > span.hgSub1 {
 /* ZHS-JA */
 
 body {
-  font-feature-settings: 'halt';
+  font-feature-settings: "halt";
 }
 
 /* bilingual */
@@ -2460,52 +2475,52 @@ span.box > span.title {
 
 /* ZH -> JA */
 
-*.entry[id^='z_'] body {
-  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
+*.entry[id^="z_"] body {
+  font-family: -apple-system, "Hiragino Sans", Noto Sans CJK JP;
   font-weight: 300;
 }
 
-*.entry[id^='z_'] span.hwg span.hw {
-  font-family: 'STKaitiSC-Bold', 'PingFang SC', Noto Sans CJK JP;
+*.entry[id^="z_"] span.hwg span.hw {
+  font-family: "STKaitiSC-Bold", "PingFang SC", Noto Sans CJK JP;
 }
-*.entry[id^='z_'] span.hwg span.hvg,
-*.entry[id^='z_'] span.hwg span.hv {
-  font-family: 'STKaitiSC-Regular', Noto Sans CJK JP;
+*.entry[id^="z_"] span.hwg span.hvg,
+*.entry[id^="z_"] span.hwg span.hv {
+  font-family: "STKaitiSC-Regular", Noto Sans CJK JP;
 }
 
-*.entry[id^='z_'] span.semb span.hv.ty_重ね型 {
-  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
+*.entry[id^="z_"] span.semb span.hv.ty_重ね型 {
+  font-family: "PingFang SC", -apple-system, Noto Sans CJK JP;
   font-weight: 600;
 }
 
-*.entry[id^='z_'] span.ex {
-  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
+*.entry[id^="z_"] span.ex {
+  font-family: "PingFang SC", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='z_'] span.idmsec span.idm {
-  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
+*.entry[id^="z_"] span.idmsec span.idm {
+  font-family: "PingFang SC", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='z_'] span.ant,
-*.entry[id^='z_'] span.syn {
-  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
+*.entry[id^="z_"] span.ant,
+*.entry[id^="z_"] span.syn {
+  font-family: "PingFang SC", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='z_'] span.trans {
-  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
+*.entry[id^="z_"] span.trans {
+  font-family: "Hiragino Sans", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='z_'] span.sn {
-  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
+*.entry[id^="z_"] span.sn {
+  font-family: "Hiragino Sans", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='z_'] span.pos.x_rr,
-*.entry[id^='z_'] span.ps.x_rr,
-*.entry[id^='z_'] span.lbl.x_rr,
-*.entry[id^='z_'] span.ph.x_rr,
-*.entry[id^='z_'] span.sn.x_rr,
-*.entry[id^='z_'] span.gr.x_rr {
-  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
+*.entry[id^="z_"] span.pos.x_rr,
+*.entry[id^="z_"] span.ps.x_rr,
+*.entry[id^="z_"] span.lbl.x_rr,
+*.entry[id^="z_"] span.ph.x_rr,
+*.entry[id^="z_"] span.sn.x_rr,
+*.entry[id^="z_"] span.gr.x_rr {
+  font-family: "HiraginoSans-W3", Noto Sans CJK JP;
 }
 
 /*
@@ -2525,7 +2540,7 @@ span.x_circle
 
 span.oup_label.x_rr {
   font-style: normal;
-  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
+  font-family: "HiraginoSans-W3", Noto Sans CJK JP;
 
   border: solid 1px rgba(0, 0, 0, 0.498);
   margin-right: 0.18em;
@@ -2547,8 +2562,8 @@ span.x_xd0 > span.x_xdh.x_rr {
   font-size: 84%; /* 120% * 70% */
 }
 
-*.entry[id^='z_'] span.x_xd0 > span.x_circle,
-*.entry[id^='z_'] span.x_xd0 > span.x_rr {
+*.entry[id^="z_"] span.x_xd0 > span.x_circle,
+*.entry[id^="z_"] span.x_xd0 > span.x_rr {
   display: inline;
 }
 
@@ -2556,75 +2571,75 @@ span.gr.ty_量詞 span.pr {
   color: rgba(0, 0, 0, 0.26);
 }
 
-*.entry[id^='z_'] span.hvg span.lbl.x_rr {
+*.entry[id^="z_"] span.hvg span.lbl.x_rr {
   margin-left: 0.18em;
   margin-right: 0.18em;
   font-size: 60%;
   vertical-align: 4%;
 }
 
-*.entry[id^='z_'] span.box.t_親字情報 span.bx_item {
+*.entry[id^="z_"] span.box.t_親字情報 span.bx_item {
   display: inline-block;
   margin-right: 0.7em;
 }
-*.entry[id^='z_'] span.box.t_親字情報 span.bx_item:last-child {
+*.entry[id^="z_"] span.box.t_親字情報 span.bx_item:last-child {
   margin-right: 0em;
 }
-*.entry[id^='z_'] span.box.t_親字情報 span.bx_item span.b_l {
+*.entry[id^="z_"] span.box.t_親字情報 span.bx_item span.b_l {
   color: rgba(0, 0, 0, 0.498);
 }
-*.entry[id^='z_'] span.box.t_親字情報 span.bx_item span.b_v span.subEnt {
+*.entry[id^="z_"] span.box.t_親字情報 span.bx_item span.b_v span.subEnt {
   vertical-align: 0%;
 }
 
 /* JA -> ZH */
 
-*.entry[id^='j_'] body {
-  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
+*.entry[id^="j_"] body {
+  font-family: "PingFang SC", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.hwg span.hw {
-  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
+*.entry[id^="j_"] span.hwg span.hw {
+  font-family: -apple-system, "Hiragino Sans", Noto Sans CJK JP;
 }
-*.entry[id^='j_'] span.hwg span.hvg,
-*.entry[id^='j_'] span.hwg span.hv {
-  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
+*.entry[id^="j_"] span.hwg span.hvg,
+*.entry[id^="j_"] span.hwg span.hv {
+  font-family: -apple-system, "Hiragino Sans", Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.hwg span.hw span.tail,
-*.entry[id^='j_'] span.hwg span.hvg span.hv span.tail {
+*.entry[id^="j_"] span.hwg span.hw span.tail,
+*.entry[id^="j_"] span.hwg span.hvg span.hv span.tail {
   font-size: 80%;
 }
 
-*.entry[id^='j_'] span.ex {
-  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
+*.entry[id^="j_"] span.ex {
+  font-family: "Hiragino Sans", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.idmsec span.idm,
-*.entry[id^='j_'] span.cwg span.cw,
-*.entry[id^='j_'] span.cvg span.cv {
-  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
+*.entry[id^="j_"] span.idmsec span.idm,
+*.entry[id^="j_"] span.cwg span.cw,
+*.entry[id^="j_"] span.cvg span.cv {
+  font-family: "Hiragino Sans", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.box {
-  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
+*.entry[id^="j_"] span.box {
+  font-family: "Hiragino Sans", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.trans {
-  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
+*.entry[id^="j_"] span.trans {
+  font-family: "PingFang SC", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.sn {
-  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
+*.entry[id^="j_"] span.sn {
+  font-family: "Hiragino Sans", -apple-system, Noto Sans CJK JP;
 }
 
-*.entry[id^='j_'] span.pos.x_rr,
-*.entry[id^='j_'] span.ps.x_rr,
-*.entry[id^='j_'] span.lbl.x_rr,
-*.entry[id^='j_'] span.ph.x_rr,
-*.entry[id^='j_'] span.sn.x_rr,
-*.entry[id^='j_'] span.gr.x_rr {
-  font-family: 'HiraginoSansGB-W3', Noto Sans CJK JP;
+*.entry[id^="j_"] span.pos.x_rr,
+*.entry[id^="j_"] span.ps.x_rr,
+*.entry[id^="j_"] span.lbl.x_rr,
+*.entry[id^="j_"] span.ph.x_rr,
+*.entry[id^="j_"] span.sn.x_rr,
+*.entry[id^="j_"] span.gr.x_rr {
+  font-family: "HiraginoSansGB-W3", Noto Sans CJK JP;
 }
 
 /* */
@@ -2635,7 +2650,7 @@ span.sn.x_rr.ty_sm2,
 span.sn.x_rr.ty_sm3 {
   display: inline;
   margin-right: 0.5em;
-  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
+  font-family: "HiraginoSans-W3", Noto Sans CJK JP;
 }
 span.x_xdh.sn.x_rrbg.ty_gr {
   font-size: 84%;
@@ -2666,7 +2681,7 @@ span.gp.ty_大語義,
 span.gp.ty_語義,
 span.gp.ty_副義,
 span.gp.ty_語義間 {
-  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
+  font-family: "HiraginoSans-W3", Noto Sans CJK JP;
   font-weight: 600;
 }
 
@@ -2720,7 +2735,7 @@ span[d\:pos] {
 }
 
 /* 重ね型 */
-*.entry[id^='z_'] :not(span.hwg) span.hvg span.lbl.x_rr {
+*.entry[id^="z_"] :not(span.hwg) span.hvg span.lbl.x_rr {
   font-size: 70%;
   vertical-align: 6%;
   margin-left: 0em;
@@ -2728,9 +2743,9 @@ span[d\:pos] {
 }
 
 span.pr span.ph.ty_pinyin,
-*.entry[id^='j_'] span.trans.ty_pinyin {
+*.entry[id^="j_"] span.trans.ty_pinyin {
   font-family: -apple-system, Noto Sans CJK JP;
-  font-feature-settings: 'ss07';
+  font-feature-settings: "ss07";
 }
 
 /* */

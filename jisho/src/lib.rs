@@ -2,8 +2,6 @@ use lazy_static::lazy_static;
 use pyo3::prelude::*;
 use pyo3::wrap_pyfunction;
 use serde::Deserialize;
-use std::fs::File;
-use std::io::prelude::*;
 
 // embedding makes compilation extremely slow and takes up gigantic (up to 20GB) amount of RAM
 // pub const JP_BINARY: &[u8] = include_bytes!("../jp.bc");

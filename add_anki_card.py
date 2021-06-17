@@ -1,9 +1,18 @@
 import requests
 import pyjisho
+import lxml.html as lh
+from typing import List
 
 SERVER = "http://localhost:8765"
 DECK = "日本語語彙"
 MODEL = "japanese"
+
+
+def hinshi(definition: str) -> List[str]:
+    definition = lh.fromstring(definition)
+    hinshi = [h.text_content() for h in definition.xpath('//span[@class="pos"]')]
+    hinshi = [h if h[0] != "動" else "動" for h in hinshi]
+    return hinshi
 
 
 def exists(word):
@@ -44,6 +53,7 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
                         "jp-cn": word.jp_cn.definition,
                         "jp-en": word.jp_en.definition,
                     },
+                    "tags": hinshi(word.jp.definition),
                 }
             },
         },
@@ -67,7 +77,6 @@ if __name__ == "__main__":
     query = sys.argv[1]
     if match("^[a-zA-Z]+$", query):
         query = to_hiragana(query)
-    if len(sys.argv) > 2:
-        examples = "\n".join(sys.argv[2:])
+    examples = "\n".join(sys.argv[2:]) if len(sys.argv) > 2 else ""
     word = pyjisho.search_exact_interactive(query)
     add_note(word, examples)
