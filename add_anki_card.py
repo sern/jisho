@@ -8,7 +8,7 @@ DECK = "日本語語彙"
 MODEL = "japanese"
 
 
-def hinshi(definition: str) -> List[str]:
+def parse_hinshi(definition: str) -> List[str]:
     definition = lh.fromstring(definition)
     hinshi = [h.text_content() for h in definition.xpath('//span[@class="pos"]')]
     hinshi = [h if h[0] != "動" else "動" for h in hinshi]
@@ -36,6 +36,9 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
             front += f"[{word.jp.hiragana}]"
     else:
         front = word.jp.hiragana
+    hinshi = parse_hinshi(word.jp.definition)
+    if len(hinshi) == 0:
+        hinshi = input("品詞はなんですか？（名・動・形・形動・副・連語）").split(" ")
     if exists(front):
         print("Already exists.")
         return
@@ -55,7 +58,7 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
                         "jp-cn": word.jp_cn.definition if word.jp_cn else "",
                         "jp-en": word.jp_en.definition if word.jp_en else "",
                     },
-                    "tags": hinshi(word.jp.definition),
+                    "tags": hinshi,
                 }
             },
         },
