@@ -6,7 +6,7 @@
 body {
   font-size: 12pt;
   /* font: -apple-system-body; */
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP';
+  font-family: -apple-system, Noto Sans CJK JP;
   margin-left: 0.9em;
   margin-right: 0.9em;
   margin-top: 1em;
@@ -1445,7 +1445,7 @@ span.prx {
   font-weight: normal;
   color: rgba(0, 0, 0, 0.498);
   /*
-	font-family: 'Times New Roman';
+	font-family: 'Times New Roman', Noto Sans CJK JP;
 	*/
 }
 
@@ -2108,7 +2108,7 @@ span.trg.x_xd2 > span.trans span.trans.ty_pinyin,
 span.trgg.x_xd2 > span.trg > span.trans.ty_pinyin,
 span.trgg.x_xd2 > span.trg > span.trans span.trans.ty_pinyin {
   /* So that Pinyin match with the one shown on the index column of the dictionary.app */
-  /*font-family: 'STKaitiSC-Regular';*/
+  /*font-family: 'STKaitiSC-Regular', Noto Sans CJK JP;*/
   font-weight: normal;
   margin-left: 0.2em;
   margin-right: 0.2em;
@@ -2418,12 +2418,12 @@ html.apple_client-panel span.hwg > span.hgSub1 {
 /* JA, JA-EN */
 
 body {
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP', 'Hiragino Sans';
+  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
   font-weight: 300;
   font-feature-settings: 'halt';
 }
 span.sn {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 /* */
@@ -2463,7 +2463,7 @@ span.lbl.x_rr,
 span.ph.x_rr,
 span.sn.x_rr,
 span.gr.x_rr {
-  font-family: 'HiraginoSans-W3';
+  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
 }
 
 html.apple_client-panel span.hg span.vg.x_weak,

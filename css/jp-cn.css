@@ -6,7 +6,7 @@
 body {
   font-size: 12pt;
   /* font: -apple-system-body; */
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP';
+  font-family: -apple-system, Noto Sans CJK JP;
   margin-left: 0.9em;
   margin-right: 0.9em;
   margin-top: 1em;
@@ -1445,7 +1445,7 @@ span.prx {
   font-weight: normal;
   color: rgba(0, 0, 0, 0.498);
   /*
-	font-family: 'Times New Roman';
+	font-family: 'Times New Roman', Noto Sans CJK JP;
 	*/
 }
 
@@ -2108,7 +2108,7 @@ span.trg.x_xd2 > span.trans span.trans.ty_pinyin,
 span.trgg.x_xd2 > span.trg > span.trans.ty_pinyin,
 span.trgg.x_xd2 > span.trg > span.trans span.trans.ty_pinyin {
   /* So that Pinyin match with the one shown on the index column of the dictionary.app */
-  /*font-family: 'STKaitiSC-Regular';*/
+  /*font-family: 'STKaitiSC-Regular', Noto Sans CJK JP;*/
   font-weight: normal;
   margin-left: 0.2em;
   margin-right: 0.2em;
@@ -2448,7 +2448,7 @@ span.ph.ty_rt {
 }
 
 span.hw span.gp.ty_hom.tg_hw {
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP';
+  font-family: -apple-system, Noto Sans CJK JP;
 }
 
 span.box > span.title {
@@ -2461,42 +2461,42 @@ span.box > span.title {
 /* ZH -> JA */
 
 *.entry[id^='z_'] body {
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP', 'Hiragino Sans';
+  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
   font-weight: 300;
 }
 
 *.entry[id^='z_'] span.hwg span.hw {
-  font-family: 'STKaitiSC-Bold', 'PingFang SC';
+  font-family: 'STKaitiSC-Bold', 'PingFang SC', Noto Sans CJK JP;
 }
 *.entry[id^='z_'] span.hwg span.hvg,
 *.entry[id^='z_'] span.hwg span.hv {
-  font-family: 'STKaitiSC-Regular';
+  font-family: 'STKaitiSC-Regular', Noto Sans CJK JP;
 }
 
 *.entry[id^='z_'] span.semb span.hv.ty_重ね型 {
-  font-family: 'PingFang SC', -apple-system;
+  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
   font-weight: 600;
 }
 
 *.entry[id^='z_'] span.ex {
-  font-family: 'PingFang SC', -apple-system;
+  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='z_'] span.idmsec span.idm {
-  font-family: 'PingFang SC', -apple-system;
+  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='z_'] span.ant,
 *.entry[id^='z_'] span.syn {
-  font-family: 'PingFang SC', -apple-system;
+  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='z_'] span.trans {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='z_'] span.sn {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='z_'] span.pos.x_rr,
@@ -2505,7 +2505,7 @@ span.box > span.title {
 *.entry[id^='z_'] span.ph.x_rr,
 *.entry[id^='z_'] span.sn.x_rr,
 *.entry[id^='z_'] span.gr.x_rr {
-  font-family: 'HiraginoSans-W3';
+  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
 }
 
 /*
@@ -2525,7 +2525,7 @@ span.x_circle
 
 span.oup_label.x_rr {
   font-style: normal;
-  font-family: 'HiraginoSans-W3';
+  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
 
   border: solid 1px rgba(0, 0, 0, 0.498);
   margin-right: 0.18em;
@@ -2580,15 +2580,15 @@ span.gr.ty_量詞 span.pr {
 /* JA -> ZH */
 
 *.entry[id^='j_'] body {
-  font-family: 'PingFang SC', -apple-system;
+  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.hwg span.hw {
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP', 'Hiragino Sans';
+  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
 }
 *.entry[id^='j_'] span.hwg span.hvg,
 *.entry[id^='j_'] span.hwg span.hv {
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP', 'Hiragino Sans';
+  font-family: -apple-system, 'Hiragino Sans', Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.hwg span.hw span.tail,
@@ -2597,25 +2597,25 @@ span.gr.ty_量詞 span.pr {
 }
 
 *.entry[id^='j_'] span.ex {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.idmsec span.idm,
 *.entry[id^='j_'] span.cwg span.cw,
 *.entry[id^='j_'] span.cvg span.cv {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.box {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.trans {
-  font-family: 'PingFang SC', -apple-system;
+  font-family: 'PingFang SC', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.sn {
-  font-family: 'Hiragino Sans', -apple-system;
+  font-family: 'Hiragino Sans', -apple-system, Noto Sans CJK JP;
 }
 
 *.entry[id^='j_'] span.pos.x_rr,
@@ -2624,7 +2624,7 @@ span.gr.ty_量詞 span.pr {
 *.entry[id^='j_'] span.ph.x_rr,
 *.entry[id^='j_'] span.sn.x_rr,
 *.entry[id^='j_'] span.gr.x_rr {
-  font-family: 'HiraginoSansGB-W3';
+  font-family: 'HiraginoSansGB-W3', Noto Sans CJK JP;
 }
 
 /* */
@@ -2635,7 +2635,7 @@ span.sn.x_rr.ty_sm2,
 span.sn.x_rr.ty_sm3 {
   display: inline;
   margin-right: 0.5em;
-  font-family: 'HiraginoSans-W3';
+  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
 }
 span.x_xdh.sn.x_rrbg.ty_gr {
   font-size: 84%;
@@ -2666,7 +2666,7 @@ span.gp.ty_大語義,
 span.gp.ty_語義,
 span.gp.ty_副義,
 span.gp.ty_語義間 {
-  font-family: 'HiraginoSans-W3';
+  font-family: 'HiraginoSans-W3', Noto Sans CJK JP;
   font-weight: 600;
 }
 
@@ -2729,7 +2729,7 @@ span[d\:pos] {
 
 span.pr span.ph.ty_pinyin,
 *.entry[id^='j_'] span.trans.ty_pinyin {
-  font-family: 'Hiragino Sans', 'Noto Serif CJK JP';
+  font-family: -apple-system, Noto Sans CJK JP;
   font-feature-settings: 'ss07';
 }
 

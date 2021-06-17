@@ -1,11 +1,20 @@
-FALLBACK_FONT = "Noto Serif CJK JP"
+import re
+
+FALLBACK_SANS = "Noto Sans CJK JP"
 
 MAP = [
     ("-apple-system-text-background", "white"),
     ("-apple-system-secondary-label", "rgba(0, 0, 0, 0.498)"),
     ("-apple-system-tertiary-label", "rgba(0, 0, 0, 0.26)"),
-    ("font-family: -apple-system", f"font-family: 'Hiragino Sans', '{FALLBACK_FONT}'"),
 ]
+
+
+def process_fonts(input: str):
+    output = ""
+    for line in input.splitlines():
+        line = re.sub("(font-family: [^;]+);", rf"\1, {FALLBACK_SANS};", line)
+        output += line + "\n"
+    return output
 
 
 def convert_css(input):
@@ -13,7 +22,9 @@ def convert_css(input):
         content = f.read()
     for (s, d) in MAP:
         content = content.replace(s, d)
+    content = process_fonts(content)
     content = content.replace('"', "'")
+
     return content
 
 
