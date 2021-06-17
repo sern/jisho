@@ -8,12 +8,28 @@ DECK = "日本語語彙"
 MODEL = "japanese"
 
 
+def process_hinshi(x_xdh) -> str:
+    pos = x_xdh.xpath('.//span[@class="pos"]')
+    if len(pos) == 2:
+        return "形動"
+    hinshi = pos[0].text
+    if hinshi == "名":
+        sy = pos.xpath(
+            './..//span[@class="sy"]'
+        )  # why isn't following-sibling working?
+        if len(sy) == 1 and sy[0].text_content().strip() == "スル":
+            hinshi = "名・スル"
+    return hinshi
+
+
 def parse_hinshi(definition: str) -> List[str]:
     definition = lh.fromstring(definition)
-    hinshi = [h.text_content() for h in definition.xpath('//span[@class="pos"]')]
-    hinshi = [h if h[0] != "動" else "動" for h in hinshi]
-    if hinshi == ["名", "形動"]:
-        hinshi = ["形動"]
+    hinshi = [
+        process_hinshi(h)
+        for h in definition.xpath(
+            '//span[contains(@class, "se1")]/span[contains(@class, "x_xdh")]'
+        )
+    ]
     return hinshi
 
 
