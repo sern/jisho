@@ -8,31 +8,6 @@ DECK = "日本語語彙"
 MODEL = "japanese"
 
 
-def process_hinshi(x_xdh) -> str:
-    pos = x_xdh.xpath('.//span[@class="pos"]')
-    if len(pos) == 2:
-        return "形動"
-    hinshi = pos[0].text
-    if hinshi == "名":
-        sy = pos[0].xpath(
-            './..//span[@class="sy"]'
-        )  # why isn't following-sibling working?
-        if len(sy) == 1 and sy[0].text_content().strip() == "スル":
-            hinshi = "名・スル"
-    return hinshi
-
-
-def parse_hinshi(definition: str) -> List[str]:
-    definition = lh.fromstring(definition)
-    hinshi = [
-        process_hinshi(h)
-        for h in definition.xpath(
-            '//span[contains(@class, "se1")]/span[contains(@class, "x_xdh")]'
-        )
-    ]
-    return hinshi
-
-
 def exists(word):
     r = requests.post(
         SERVER,
@@ -52,7 +27,7 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
             front += f"[{word.jp.hiragana}]"
     else:
         front = word.jp.hiragana
-    hinshi = parse_hinshi(word.jp.definition)
+    hinshi = word.hinshi()
     if len(hinshi) == 0:
         # hinshi = input("品詞はなんですか？（名・動・形・形動・副・連語）").split(" ")
         hinshi = ["名"]
@@ -90,7 +65,6 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
 if __name__ == "__main__":
     import os
     import sys
-    from re import match
 
     os.chdir(os.path.dirname(__file__))
     if len(sys.argv) == 1:
