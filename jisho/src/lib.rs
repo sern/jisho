@@ -159,7 +159,7 @@ impl SearchResultSingle {
         }
 
         let entry = Parser::default()
-            .parse_string(&self.jp.as_ref().unwrap().definition)
+            .parse_string(&self.jp.as_ref().expect("A definition in the Japanese dictionary is required to determine the part of speech (品詞)").definition)
             .unwrap();
         let entry = entry.as_node();
         entry
@@ -173,16 +173,17 @@ impl SearchResultSingle {
 
 pub fn search_exact_interactive(query: &str) -> SearchResultSingle {
     fn _search_exact_interactive(
-        q: &str,
+        qs: &mut Vec<String>,
+        i: usize,
         dictionary: &'static [Entry],
         name: &'static str,
     ) -> Option<&'static Entry> {
-        let q = standardize_input(q);
+        let q = &qs[i];
         println!("Now searching {} in the {} dictionary...", q, name);
         let stdin = std::io::stdin();
         let mut ans = String::new();
         for entry in dictionary.iter() {
-            if entry.hiragana == q || entry.kanjis.iter().any(|x| x == &q) {
+            if &entry.hiragana == q || entry.kanjis.iter().any(|x| x == q) {
                 println!("{}|{:?}", entry.hiragana, entry.kanjis);
 
                 stdin.read_line(&mut ans).unwrap();
@@ -192,19 +193,35 @@ pub fn search_exact_interactive(query: &str) -> SearchResultSingle {
                 ans.clear();
             }
         }
-        println!("Cannot find a match of {} in the {} dictionary. Hit enter to skip or search for another keyword.", q, name);
-        stdin.read_line(&mut ans).unwrap();
-        match &ans[..ans.len() - 1] {
-            // -1 to remove newline
-            "" => None,
-            q => _search_exact_interactive(&q, dictionary, name),
+        if i == q.len() - 1 {
+            println!("Cannot find a match of {} in the {} dictionary. Hit enter to skip or search for another keyword.", q, name);
+            stdin.read_line(&mut ans).unwrap();
+            match &ans[..ans.len() - 1] {
+                // -1 to remove newline
+                "" => return None,
+                q => qs.push(q.to_owned()),
+            }
+        }
+        _search_exact_interactive(qs, i + 1, dictionary, name)
+    }
+    let mut res = SearchResultSingle::default();
+    let mut queries = vec![standardize_input(query)];
+    res.jp = _search_exact_interactive(&mut queries, 0, &JP, JP_NAME);
+    if !wana_kana::is_hiragana::is_hiragana(&queries[0]) {
+        if res.jp.is_some() {
+            let hinshi = res.hinshi();
+            for h in hinshi.iter() {
+                match &h[..] {
+                    "形動" => queries.push(queries[0].clone() + "な"),
+                    "名・スル" => queries.push(queries[0].clone() + "する"),
+                    _ => {}
+                }
+            }
         }
     }
-    SearchResultSingle {
-        jp: _search_exact_interactive(query, &JP, JP_NAME),
-        jp_cn: _search_exact_interactive(query, &JP_CN, JP_CN_NAME),
-        jp_en: _search_exact_interactive(query, &JP_EN, JP_EN_NAME),
-    }
+    res.jp_cn = _search_exact_interactive(&mut queries, 0, &JP_CN, JP_CN_NAME);
+    res.jp_en = _search_exact_interactive(&mut queries, 0, &JP_EN, JP_EN_NAME);
+    res
 }
 
 pub fn standardize_input(input: &str) -> String {

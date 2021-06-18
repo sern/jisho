@@ -13,3 +13,4 @@ libxml = "0.3.0"
 pyo3 ={version = "0.13.2", features = ["extension-module"]}
 romkan = "0.2.1"
 serde = {version = "1.0.126", features = ['derive']}
+wana_kana = "2.0.1"
