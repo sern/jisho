@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # for jp_result in results.jp:
     #     print(jp_result.hiragana, jp_result.kanjis)
     # flattened = [e.definition for e in results.jp + results.jp_cn + results.jp_en]
-    print(results.hinshi())
+    print(results.hinshi)
     flattened = [e.definition for e in [results.jp, results.jp_cn, results.jp_en]]
     HEAD = """<html lang="en">
     <head>

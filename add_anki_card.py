@@ -27,7 +27,7 @@ def add_note(word: pyjisho.SearchResultSingle, examples: str):
             front += f"[{word.jp.hiragana}]"
     else:
         front = word.jp.hiragana
-    hinshi = word.hinshi()
+    hinshi = word.hinshi
     if len(hinshi) == 0:
         # hinshi = input("品詞はなんですか？（名・動・形・形動・副・連語）").split(" ")
         hinshi = ["名"]

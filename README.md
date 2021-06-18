@@ -24,13 +24,15 @@ Prefer building on Linux. The **lxml** library on MacOS may fail for no reason.
 2. Convert json into the bincode format, by which Rust programs can decode efficiently
 
    ```
-   cd conv && cargo run && cd ..
+   cd conv
+   cargo run
+   cd ..
    ```
 
 3. Build the python module
 
    ```
-   cd jisho
+   cd pyjisho
    cargo build --release
    cd ..
    ```
