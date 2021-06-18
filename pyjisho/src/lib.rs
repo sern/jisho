@@ -101,8 +101,8 @@ fn jisho(_py: Python, m: &PyModule) -> PyResult<()> {
         jisho::search_contains_all(&query).into()
     }
     #[pyfn(m, "search_exact_interactive")]
-    fn search_exact_interactive(query: String) -> SearchResultSingle {
-        jisho::search_exact_interactive(&query).into()
+    fn search_exact_interactive(query: String) -> Option<SearchResultSingle> {
+        jisho::search_exact_interactive(&query).map(|r| r.into())
     }
     Ok(())
 }

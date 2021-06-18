@@ -2,6 +2,8 @@ use lazy_static::lazy_static;
 use pyo3::prelude::*;
 use romkan::Romkan;
 use serde::Deserialize;
+use thiserror::Error;
+
 // embedding makes compilation extremely slow and takes up gigantic (up to 20GB) amount of RAM
 // pub const JP_BINARY: &[u8] = include_bytes!("../jp.bc");
 // pub const JP_CN_BINARY: &[u8] = include_bytes!("../jp-cn.bc");
@@ -171,34 +173,52 @@ impl SearchResultSingle {
     }
 }
 
-pub fn search_exact_interactive(query: &str) -> SearchResultSingle {
+#[derive(Error, Debug)]
+pub enum InteractiveSearchError {
+    #[error("aborted")]
+    Abort,
+    #[error("'{0}' not found in {1}")]
+    NotFound(String, String),
+}
+
+pub fn search_exact_interactive(query: &str) -> Option<SearchResultSingle> {
     fn _search_exact_interactive(
         qs: &mut Vec<String>,
         i: usize,
         dictionary: &'static [Entry],
         name: &'static str,
-    ) -> Option<&'static Entry> {
+    ) -> Result<&'static Entry, InteractiveSearchError> {
         let q = &qs[i];
         println!("Now searching {} in the {} dictionary...", q, name);
         let stdin = std::io::stdin();
         let mut ans = String::new();
         for entry in dictionary.iter() {
             if &entry.hiragana == q || entry.kanjis.iter().any(|x| x == q) {
-                println!("{}|{:?}", entry.hiragana, entry.kanjis);
-
-                stdin.read_line(&mut ans).unwrap();
-                if &ans == "\n" {
-                    return Some(entry);
-                }
+                println!("{}|{:?}\nHit enter to confirm, q to abort or any other key to continue searching", entry.hiragana, entry.kanjis);
                 ans.clear();
+                stdin.read_line(&mut ans).unwrap();
+                match &ans[..ans.len() - 1] {
+                    // -1 to remove newline
+                    "" => return Ok(entry),
+                    "q" => return Err(InteractiveSearchError::Abort),
+                    _ => {}
+                }
+                if &ans == "\n" {}
             }
         }
-        if i == q.len() - 1 {
-            println!("Cannot find a match of {} in the {} dictionary. Hit enter to skip or search for another keyword.", q, name);
+        if i == qs.len() - 1 {
+            println!("Cannot find a match of {} in the {} dictionary. Hit enter to skip, q to abort, or search for another keyword.", q, name);
+            ans.clear();
             stdin.read_line(&mut ans).unwrap();
             match &ans[..ans.len() - 1] {
                 // -1 to remove newline
-                "" => return None,
+                "" => {
+                    return Err(InteractiveSearchError::NotFound(
+                        q.to_string(),
+                        name.to_string(),
+                    ))
+                }
+                "q" => return Err(InteractiveSearchError::Abort),
                 q => qs.push(q.to_owned()),
             }
         }
@@ -206,7 +226,12 @@ pub fn search_exact_interactive(query: &str) -> SearchResultSingle {
     }
     let mut res = SearchResultSingle::default();
     let mut queries = vec![standardize_input(query)];
-    res.jp = _search_exact_interactive(&mut queries, 0, &JP, JP_NAME);
+    match _search_exact_interactive(&mut queries, 0, &JP, JP_NAME) {
+        Ok(entry) => res.jp = Some(entry),
+        Err(InteractiveSearchError::Abort) => return None,
+        Err(InteractiveSearchError::NotFound(_, _)) => res.jp = None,
+    }
+
     if !wana_kana::is_hiragana::is_hiragana(&queries[0]) {
         if res.jp.is_some() {
             let hinshi = res.hinshi();
@@ -219,9 +244,17 @@ pub fn search_exact_interactive(query: &str) -> SearchResultSingle {
             }
         }
     }
-    res.jp_cn = _search_exact_interactive(&mut queries, 0, &JP_CN, JP_CN_NAME);
-    res.jp_en = _search_exact_interactive(&mut queries, 0, &JP_EN, JP_EN_NAME);
-    res
+    match _search_exact_interactive(&mut queries, 0, &JP_CN, JP_CN_NAME) {
+        Ok(e) => res.jp_cn = Some(e),
+        Err(InteractiveSearchError::Abort) => return None,
+        Err(InteractiveSearchError::NotFound(_, _)) => res.jp_cn = None,
+    }
+    match _search_exact_interactive(&mut queries, 0, &JP_EN, JP_EN_NAME) {
+        Ok(e) => res.jp_en = Some(e),
+        Err(InteractiveSearchError::Abort) => return None,
+        Err(InteractiveSearchError::NotFound(_, _)) => res.jp_en = None,
+    }
+    Some(res)
 }
 
 pub fn standardize_input(input: &str) -> String {

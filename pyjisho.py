@@ -10,6 +10,8 @@ if __name__ == "__main__":
 
     query = sys.argv[1]
     results = search_exact_interactive(query)
+    if not results:
+        raise Exception("Aborted")
     # search_exact(query, JP | JP_CN, JP_EN)
     # for jp_result in results.jp:
     #     print(jp_result.hiragana, jp_result.kanjis)

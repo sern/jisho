@@ -72,4 +72,6 @@ if __name__ == "__main__":
     query = sys.argv[1]
     examples = "\n".join(sys.argv[2:]) if len(sys.argv) > 2 else ""
     word = pyjisho.search_exact_interactive(query)
+    if not word:
+        raise Exception("Aborted")
     add_note(word, examples)
